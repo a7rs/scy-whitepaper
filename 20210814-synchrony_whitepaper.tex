@@ -5,13 +5,15 @@
 \usepackage{geometry}
 \usepackage{longtable}
 \usepackage{graphicx}
-\usepackage{hyperref}
+\usepackage{hyperref} 
 \graphicspath{SYNCHRONY-LOGO.png}
+\graphicspath{allocation.png}
+\graphicspath{funding.png}
 \geometry{letterpaper,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
 
 \title{%
 	\textbf{Synchrony Whitepaper}\\
-	\emph{On-chain Automated Portfolio \& Asset Management}}
+	\emph{On-chain Copy-Trading \& Composable Indices}}
 \author{Andrew Fraser \& Andy Keh}
 
 \begin{document}
@@ -259,6 +261,8 @@
 					the program has the authority to do so, and it may only do so within the
 					parameters of its index(es).
 					\subsection{Fungible}
+					Each index instantiated as an index-pegged pool is represented by a fungible
+					token fully collateralized by its underlying tokens.
 					\subsection{Dynamic}
 					The Defi landscape is ever-changing, investors and ecosystem participants must
 					be adaptable and be able to react swiftly to market changes. Synchrony's
@@ -318,7 +322,7 @@
 					\subsection{Customization}
 					Analytics can be user-configured providing a curated and tailored experience
 					ensuring a user only receives data relevant to the types of opportunities they
-					are interested in.
+					are interested in. 
 
 					\subsection{Subscription-Based Service}
 					The analytics service is subscription-based and charged at a monthly fee of USD
@@ -341,7 +345,11 @@
 							the fact it is being followed and is owned by a malicious user, the
 							leader wallet could potentially execute transactions to the disbenefit
 							of the following wallets, an example would be a scenario similar to the
-							Bonfida example described above.
+							Bonfida example described above. The specific use-case for naked
+							copy-trading one where the user completely trusts the leader wallet
+							- there is a pre-existing relationship. The protocol however does not
+							restrict access to this feature - the user may use this feature at their
+							own discretion and accepts the associated risks.
 						\item Parameterised copy-trading - user-defined criteria for which
 							a valid transaction made by a leader wallet is considered
 							a candidate for a copy-trade. Parameterised copy-trading grants
@@ -401,7 +409,7 @@
 					time-based events that will drive community engagement and contribution.
 					Furthermore, maintaining a position on the leaderboard grants users a SCY reward
 					proportional to their average 7d performance and enters them into
-					a community-drive lottery.
+					a community-driven lottery.
 
 					\section{Indexing}
 					Synchrony's indices have three general implementations and an unlimited number
@@ -421,7 +429,7 @@
 						\item Portfolio-level indices - these indices are implemented at a portfolio
 							level and are typically utilized for automated portfolio management,
 							these indices are not visible to the community unless permitted by the
-							author.
+							author. Portfolio-level indices have no associated token.
 					\end{enumerate}
 
 					\subsection{Configurable}
@@ -459,7 +467,10 @@
 					pool.
 
 					\subsection{Composable \& Modular}
-				
+					Each index is instantiated as an index-pegged pool with an accompanying fungible
+					token representing proportional ownership of its underlying assets. Indices can
+					therefore compose, or be composed of another index's tokens.
+
 					\subsection{Powerful}
 					Synchrony's indices are suitable for a wide range of use-cases, from portfolio
 					management to copy-trading. One of the more powerful features of Synchrony's
@@ -468,6 +479,30 @@
 					themselves, there is very little that Synchrony's suite of indices cannot
 					evaluate. Where Synchrony does not have coverage, Synchrony will rely on the
 					strength of its community and DAO.
+					
+					\subsection{Mechanics}
+					Indices generate revenue via an immutable transaction fee of 0.25\%. Transaction
+					fees are charged upon the construction and deconstruction of index-pegged pool
+					tokens.
+					To construct a pool token, the user must provide the underlying assets in their
+					relevant weights however, the protocol is capable of performing transitive swaps
+					on the Serum DEX enabling a single-asset entry/exit.
+
+					\subsubsection{Synchrony-Composed Index Mechanics}
+					Synchrony composed indices possess the same immutable fees as any other index
+					however, only approved providers - users who stake an amount of SCY as
+					determined by the Synchrony DAO, are able to construct and deconstruct pool
+					tokens.
+					Synchrony will mainting liquidity pools for each Synchrony-composed index's
+					pool token - e.g. ETF/SOL. Synchrony incentivizes approved providers to
+					capitalise on the arbitrage opportunity created by these swap pools and not any
+					other third-party liquidity pools by waiving the transaction fee for the construction and deconstruction of pool tokens
+					if the token is immediately swapped into one of the corresponding liquidity
+					pools. This is achieved via executing the instruction:
+					\begin{verbatim}PoolInstruction::TokenEvent(EventType::Arbitrage(NonZeroU64))\end{verbatim} 
+					itself executing:
+					\begin{verbatim}PoolInstruction::TokenEvent(EventType::Create(NonZeroU64))\end{verbatim} and
+					subsequently: \begin{verbatim}SwapInstruction::Swap(NonZeroU64)\end{verbatim} in one transaction.
 
 					\section{Synchrony Indices}
 					\subsection{The Solana Ecosystem Index (SEI)}
@@ -478,11 +513,14 @@
 					a rebalancing interval of twenty-four (24) hours which elapses at 0000 UTC daily
 					and has a deviation threshold of 20\% where a token's market cap must deviate
 					20\% from it's previous market cap before a pre-interval rebalance may be
-					triggered. Rebalances can be executed by providing the underlying assets in
-					weights that may resolve the delta or automatically on the Serum Dex at spot
+					triggered. A manual rebalance may be performed by approved providers by providing the underlying assets in
+					weights that may resolve the delta. Manual rebalances are subject to a grace
+					period - after such period has elapsed, any user
+					may permissionlessly trigger an automatic rebalance with the necessary
+					transactions being executed on Serum DEX at spot
 					prices.
 
-					This index utilizes the following calculation methodology:
+					This index utilizes an adjustment methodology based on the Paasche formula:
 					\[I^{pass}_t = I^{pass}_{t-1}\frac{\sum_{i=1}^n P_{i,t}Q_{i,t}}{\sum_{i=1}^n
 					P_{i,t-1}Q_{i,t}}\]
 
@@ -499,12 +537,14 @@
 
 					\subsection{The Raydium Liquidity Pool Index (RAI)}
 					The Raydium Liquidity Pool index tracks the highest yielding liquidity pools on
-					the Raydium protocol with a minimum liquidity requirement of USD 1mm. This index
-					is weight by volume and is capped at eight (8) tokens. Each token has a maximum
+					the Raydium protocol with a minimum liquidity requirement of USD 1mm. Tokens in
+					candidate liquidity pools must be composed of one stable coin OR possess
+					correlative volatility. This index
+					is weighted by volume and is capped at eight (8) tokens. Each token has a maximum
 					weight of 30\%, there is no minimum token weighting upon initialisation. This
 					index has a rebalancing interval of twenty-four (24) hours which elapses at 0000
 					UTC daily and has a deviation threshold of 20\% where a liquidity pool's
-					liquidity must deviate 20\% from its previous liquidity before  a pre-interval
+					liquidity must deviate 20\% from its previous liquidity before a pre-interval
 					rebalance may be triggered. The following parameters may be alter by a vote of
 					simple majority made by the Synchrony DAO:
 					\begin{itemize}
@@ -575,6 +615,10 @@
 							decided on by the DAO, of staked SCY tokens. These tokens go towards
 							a platform insurance pool. Providers are granted an equal share of all
 							fees generated by Synchrony composed indices.
+						\item index token construction and deconstruction may only be performed by
+							approved providers. Any platform participant may become an approved provider by
+							staking a certain amount of SCY the exact amount being decided by the
+							Synchrony DAO.
 					\end{itemize}
 
 					\section{Governance}
@@ -648,10 +692,17 @@
 					Total Token Supply: 1,000,000,000.00\\
 					Token Allocation by Percentage:
 
+					\begin{center}
+						\begin{figure}[h]
+							\includegraphics[scale=0.5]{allocation.png}
+							\centering
+						\end{figure}
+					\end{center}
+
 					\subsection{Team}
-					The Synchrony team will be vested on a thirty-six (36) month timeline with
-					a twelve (12) month lockup period. Over the following twenty-four (24) months
-					tokens will be released quarterly. 15\% of the total token supply is allocated
+					The Synchrony team will be vested on a thirty-six (36) month timeline, 1/24 of
+					team tokens will be emitted on the one (1) year anniversary of the Token
+					Generation Event and every month thereafter. 15\% of the total token supply is allocated
 					to the Synchrony team.
 
 					\subsection{Advisors}
@@ -660,54 +711,69 @@
 
 					\subsection{Private}
 					\subsubsection{Round 1}
-					We recognise the work and guidance of our earliest backers - their long term
-					vision being aligned with the project. Round 1 tokens are vested on a fifteen
-					(15) month timeline with monthly distributions. 5\% of Round 1 tokens are
-					unlocked at TGE. 3\% of the total token supply is allocated to Round
+					Round 1 tokens are vested on a fifteen (15) month timeline, 5\% of which are
+					emitted on the date of the Token Generation Event. 1/15 of the remaining vested
+					tokens are emitted each month thereafter on the same day of the month as the
+					Token Generation Event. 3\% of the total token supply is allocated to Round
 					1 investors, token price is set at USD 0.02.
 
 					\subsubsection{Round 2}
-					Round 2 tokens are vested on a twelve (12) month timeline with monthly
-					distributions. 10\% of Round 2 tokens are unlocked at TGE. 12\% of the total
+					Round 2 tokens are vested on a twelve (12) month timeline, 10\% of which are
+					emitted on the date of the Token Generation Event. 1/12 of the remaining vested
+					tokens are emitted each month thereafter on the same day of the month as the
+					Token Generation Event.
+					monthly emissions on the same day as the Token Generation Event. 12\% of the total
 					token supply is allocated to Round 2 investors, token price is set at USD 0.03.
 
 					\subsection{Public}
-					Public sale tokens will follow no vesting period and will therefore receive
-					100\% of their tokens. 1\% of total token supply is allocated for public sale,
+					Public sale tokens will follow no vesting period and participants of the public
+					sale will therefore receive
+					100\% of their tokens. 1\% of total token supply is allocated for the public sale,
 					token price is set at USD 0.06.
 
 					\subsection{Ecosystem}
 					Ecosystem token allocation is to ensure and encourage a vibrant community.
-					Specifically, the ecosystem token allocation is used to support partnerships,
-					grants and development programs for long term longevity. 12\% of the total token
+					Ecosystem token allocation is specifically used to support partnerships,
+					grants and development programs. 12\% of the total token
 					supply is allocated for ecosystem growth. Ecosystem tokens are vested for
-					twenty-four (24) months unlocking on a monthly basis. The longer time horizon
+					twenty-four (24) months with monthly emissiosn. The longer time horizon
 					was chosen to ensure that growth remains constant allowing Synchrony and its
 					community to mature and foster innovative and meaningful partnerships.
 
 					\subsection{Liquidity}
 					Liquidity token allocation primarily serves the function of maintaining
 					liquidity on exchange listings. 5\% of the total token supply is allocated for
-					liquidity vested over a 12 month period with monthly releases.
+					liquidity without any vesting period.
 
 					\subsection{Community}
 					Community token allocation is for user acquisition, engagement and management.
 					5\% of the total token supply is allocated for community growth. Community
-					tokens vested over a twenty-four (24) month period with monthly releases.
+					tokens are vested over a twenty-four (24) month period with monthly emissions.
 
 					\subsection{Reserve}
 					Reserve allocation may be utilised in any of the aforementioned areas for which
 					there may be a shortfall due to unforeseen circumstances or increased demand.
 					Reserve allocation may also be used for any further raise Synchrony requires
 					specific to cross-chain integrations. 5\% of the total token supply is allocated
-					for reserve vested over a twelve (12) month period with monthly releases.
+					for reserve vested over a twelve (12) month period with monthly emissions.
 
 					\subsection{Staking}
-					Synchrony's protocol
+					Synchrony's protocol accounts for staking with an initially inflationary model
+					with a decreasing rate until a terminal floor is reached. This is necessary for
+					rapid initial growth of the protocol and to bootstrap liquidity. 32\% of the
+					total token supply is allocated for staking vested over a twelve (12) month
+					period with monthly emissions.
 
 					\section{Funding Allocation}
 					Total Raise: USD 4,200,000.00\\
 					Funding Allocation by Percentage:
+
+					\begin{center}
+						\begin{figure}[h]
+							\includegraphics[scale=0.6]{funding.png}
+							\centering
+						\end{figure}
+					\end{center}
 
 					\section{Solana}
 					We built Synchrony on Solana as we believe Solana is the next generation
@@ -736,15 +802,14 @@
 					sectors.
 					\vspace{1em}
 
-					\noindent The Synchrony team is lead by:\\
-					Andrew Fraser - a software engineer with a decade of experience designing and
+					\noindent The Synchrony team is lead by:
+					\subsection{Andrew Fraser} - a software engineer with a decade of experience designing and
 					developing solutions for tier-1 financial institutions with a speciality in
 					execution platforms, algorithmic trading and algorithmic portfolio optimization.
 					He was a former director of Prive technologies, a Hong Kong based fintech
 					start-up, their execution platform Avenir / Wealth and i-Invest: an in-house
 					execution platform for Ageas Insurance Company Asia (AICA).
-					\vspace{1em}
-					Andy Keh - a serial entrepreneur with over a decade of experience in application
+					\subsection{Andy Keh} - a serial entrepreneur with over a decade of experience in application
 					and systems development. He is a former operations manager at the digital
 					marketing agency c-4 analytics, director of the R\&D division for a Berkshire
 					Hathaway subsidiary H.H. Brown, and the founder of a alternative asset

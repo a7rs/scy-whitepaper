@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.7.7)  15 AUG 2021 23:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.7.7)  15 AUG 2021 23:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -454,7 +454,7 @@ Package pdftex.def Info: funding.png  used on input line 773.
 (./20210814-synchrony_whitepaper.aux)
 Package rerunfilecheck Info: File `20210814-synchrony_whitepaper.out' has not c
 hanged.
-(rerunfilecheck)             Checksum: 0706B2D1347E0684E0DDE71473DADC21;9771.
+(rerunfilecheck)             Checksum: 993511F2A36E2AAEB97D7972861F02EE;9771.
  ) 
 Here is how much of TeX's memory you used:
  8668 strings out of 478994
@@ -478,7 +478,7 @@ dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.
 pfb>
-Output written on 20210814-synchrony_whitepaper.pdf (18 pages, 364055 bytes).
+Output written on 20210814-synchrony_whitepaper.pdf (18 pages, 364038 bytes).
 PDF statistics:
  563 PDF objects out of 1000 (max. 8388607)
  516 compressed objects within 6 object streams

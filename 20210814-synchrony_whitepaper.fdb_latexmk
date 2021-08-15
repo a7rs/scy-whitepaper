@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1629066441 "20210814-synchrony_whitepaper.tex" "20210814-synchrony_whitepaper.pdf" "20210814-synchrony_whitepaper" 1629066441
+["pdflatex"] 1629066834 "20210814-synchrony_whitepaper.tex" "20210814-synchrony_whitepaper.pdf" "20210814-synchrony_whitepaper" 1629066834
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1617738065 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1617738065 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1617738065 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -83,16 +83,16 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1617738065 39911 2da6c67557ec033436fe5418a70a8a61 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1625651858 334215 ad2feb41952e3720830b65f83a01c5b0 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1625651847 2812674 5ecb45d5a188038ca177f6fe4845a632 ""
-  "20210814-synchrony_whitepaper.aux" 1629066441 9137 46260fe98d7992232ce51866a3f0d8f8 "pdflatex"
-  "20210814-synchrony_whitepaper.out" 1629066441 9771 0706b2d1347e0684e0dde71473dadc21 "pdflatex"
-  "20210814-synchrony_whitepaper.tex" 1629066438 47643 bacf0fbf8391bf76d4eba47dc0414a79 ""
-  "20210814-synchrony_whitepaper.toc" 1629066441 5662 0b172c8fae26a0f742008f48b5b15aa7 "pdflatex"
+  "20210814-synchrony_whitepaper.aux" 1629066834 9137 6ee3970ac39256f926ffc62f6a743eb0 "pdflatex"
+  "20210814-synchrony_whitepaper.out" 1629066834 9771 993511f2a36e2aaeb97d7972861f02ee "pdflatex"
+  "20210814-synchrony_whitepaper.tex" 1629066826 47635 e30935bcd1c458eba5530feea80ddfc2 ""
+  "20210814-synchrony_whitepaper.toc" 1629066834 5662 3ae597e85f110aacfcb92fe980898549 "pdflatex"
   "SYNCHRONY-LOGO.png" 1628943231 2078193 8ffa831a911c8c9915bd35cbbbdfe75f ""
   "allocation.png" 1629066149 38355 78827d4d43097c1c11bba45f1202feb2 ""
   "funding.png" 1629065967 20898 4647088fbb09c77b80c9fcd18e85f2f5 ""
   (generated)
-  "20210814-synchrony_whitepaper.out"
+  "20210814-synchrony_whitepaper.toc"
   "20210814-synchrony_whitepaper.log"
+  "20210814-synchrony_whitepaper.out"
   "20210814-synchrony_whitepaper.pdf"
   "20210814-synchrony_whitepaper.aux"
-  "20210814-synchrony_whitepaper.toc"

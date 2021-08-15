@@ -14,7 +14,7 @@
 \contentsline {subsection}{\numberline {2.2}Intention-First}{7}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}Inclusive}{7}{subsection.2.3}%
 \contentsline {subsection}{\numberline {2.4}Trustless}{7}{subsection.2.4}%
-\contentsline {subsection}{\numberline {2.5}Non-Custodial \& Collateralised}{7}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.5}Non-Custodial \& Collateralized}{7}{subsection.2.5}%
 \contentsline {subsection}{\numberline {2.6}Fungible}{7}{subsection.2.6}%
 \contentsline {subsection}{\numberline {2.7}Dynamic}{7}{subsection.2.7}%
 \contentsline {subsection}{\numberline {2.8}Streamlined}{8}{subsection.2.8}%

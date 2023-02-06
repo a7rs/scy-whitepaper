@@ -1,4 +1,4 @@
-PWD /home/a7rs/projects/synchrony/whitepaper
+PWD /home/a7rs/projects/scylabs/scy/synchrony-whitepaper
 INPUT /usr/share/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
 INPUT 20210814-synchrony_whitepaper.tex
@@ -271,10 +271,6 @@ INPUT /usr/share/texmf-dist/tex/latex/hyperref/pd1enc.def
 INPUT /usr/share/texmf-dist/tex/latex/hyperref/pd1enc.def
 INPUT /usr/share/texmf-dist/tex/latex/hyperref/pd1enc.def
 INPUT /usr/share/texmf-dist/tex/latex/hyperref/pd1enc.def
-INPUT /usr/share/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def
-INPUT /usr/share/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def
-INPUT /usr/share/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def
-INPUT /usr/share/texmf-dist/tex/latex/hyperref/hyperref-langpatches.def
 INPUT /usr/share/texmf-dist/tex/generic/intcalc/intcalc.sty
 INPUT /usr/share/texmf-dist/tex/generic/intcalc/intcalc.sty
 INPUT /usr/share/texmf-dist/tex/generic/intcalc/intcalc.sty
